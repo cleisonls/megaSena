@@ -1,0 +1,137 @@
+
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+	</head>
+	<body>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                        <div style="text-align: center; margin-top: 50px;">
+                            <img src="img/megaSena.png">
+                        </div>
+                </div>
+            </div>
+            <div class="row position-center">
+                <div class="col-12">
+                    <div id="canvasSorteio">
+                        <div id="sorteio"></div>
+                        <div id="campoBtnSorteio">
+                            <div class="row">
+                                <div class="col-4">&nbsp;</div>
+                                <div class="col-2">
+                                    <select class="form-control" id="seletor" style="width: 100px; margin-top: 7px;">
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-secondary btn-lg" id="btnSorteio">Sortear</button>
+                                </div>
+                                <div class="col-4">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+		<script>
+            var sorteio = 0
+            var seletor = 0 
+            var sorteioArray = []
+
+            $('#btnSorteio').click(function(){
+                limpar()
+                sorteioFunction()
+                organizarCrescente()
+                escreverNaTela()
+                $("#sorteio").hide().delay(300).show(300)
+                $("#seletor").hide().delay(100).show(400)
+                $("#btnSorteio").hide().delay(600).show(200)
+            });
+
+            function limpar(){
+				document.getElementById("sorteio").innerHTML = ""
+                sorteioArray = []
+                seletor = 0
+			}
+
+			function sorteioFunction(){
+                seletor = document.getElementById("seletor").value
+                while(sorteioArray.length < seletor){
+                    while (sorteio == 0){
+						sorteio = Math.floor(Math.random() * 61)
+					}
+                    if (sorteioArray.indexOf(sorteio) == -1){
+                        sorteioArray.push(sorteio)
+                    }
+                    sorteio = 0
+                }
+            }
+
+            function organizarCrescente(){
+                sorteioArray.sort(function(a,b){
+                    return a - b
+                })
+            }
+
+            function escreverNaTela(){
+                for(i = 1; i <= sorteioArray.length; i++){
+                    document.getElementById("sorteio").innerHTML += "<div class='bolaSorteio'>"+sorteioArray[i-1]+"</div>"
+                }
+            }
+
+		</script>
+
+		<style>
+            
+            #sorteio{
+                margin-top: 50px;
+                justify-content: center;
+                
+            }
+
+            #canvasSorteio{
+                text-align: center;
+            }
+
+            #CampoBtnSorteio{
+                margin-top: 20px;
+                padding: 20px;
+            }
+
+            .bolaSorteio{
+                text-align: center;
+                width: 67px;
+                height: 67px;
+                border: solid 1px;
+                border-radius: 35px;
+                margin: 0 6px 0 6px;
+                color: #fff;
+                background: #209869;
+                font-size: 2em;
+                display: inline-block;
+                padding: 5px 0px;
+            }
+            
+		</style>
+	
+	
+</html>
